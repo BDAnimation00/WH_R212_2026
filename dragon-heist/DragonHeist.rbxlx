@@ -1810,7 +1810,7 @@ return Visuals
           <string name="Name">WorldBuilder</string>
           <string name="Source"><![CDATA[-- MAP DE BASE (placeholder) — disposition en cercle
 --   Centre : la boutique
---   Autour : les 8 bases, en cercle, portes tournées vers l'extérieur
+--   Autour : les 8 bases, en cercle, portes tournées vers le centre
 --   Puis des anneaux de nids : Forêt → Volcan → Ciel (plus on s'éloigne, plus c'est rare)
 --
 -- Le fichier DragonHeist.rbxlx contient déjà cette map : tu peux la modifier librement dans Studio.
@@ -2127,15 +2127,15 @@ function WorldBuilder.Build()
 	spawn.Duration = 0
 	spawn.Parent = map
 
-	-- Bases en cercle autour de la boutique, porte tournée vers l'extérieur (vers les nids)
+	-- Bases en cercle autour de la boutique, porte tournée vers le centre
 	local bases = Instance.new("Folder")
 	bases.Name = "Bases"
 	bases.Parent = map
 	for i = 1, BASE_COUNT do
 		local angle = math.rad((i - 1) * (360 / BASE_COUNT))
 		local position = polar(BASE_RING_RADIUS, angle, plazaTop)
-		-- Rotation qui tourne l'avant de la base (-Z local, la porte) vers l'extérieur
-		local cf = CFrame.new(position) * CFrame.Angles(0, -angle - math.pi / 2, 0)
+		-- Rotation qui tourne l'avant de la base (-Z local, la porte) vers le centre (la boutique)
+		local cf = CFrame.new(position) * CFrame.Angles(0, math.pi / 2 - angle, 0)
 		buildBase(i, cf).Parent = bases
 	end
 
@@ -4866,11 +4866,11 @@ end)
                 <Z>0</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>-1</R02>
+                <R02>1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>1</R20>
+                <R20>-1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -4890,16 +4890,16 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>68</X>
+                <X>112</X>
                 <Y>7.600006</Y>
                 <Z>-0</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>-1</R02>
+                <R02>1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>1</R20>
+                <R20>-1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -4921,14 +4921,14 @@ end)
               <CoordinateFrame name="CFrame">
                 <X>90</X>
                 <Y>7.600006</Y>
-                <Z>-22</Z>
+                <Z>22</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>-1</R02>
+                <R02>1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>1</R20>
+                <R20>-1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -4950,14 +4950,14 @@ end)
               <CoordinateFrame name="CFrame">
                 <X>90</X>
                 <Y>7.600006</Y>
-                <Z>22</Z>
+                <Z>-22</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>-1</R02>
+                <R02>1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>1</R20>
+                <R20>-1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -4977,16 +4977,16 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>112</X>
+                <X>68</X>
                 <Y>7.600006</Y>
                 <Z>0</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>-1</R02>
+                <R02>1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>1</R20>
+                <R20>-1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -5008,16 +5008,16 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>107</X>
+                <X>73</X>
                 <Y>2.600006</Y>
-                <Z>17</Z>
+                <Z>-17</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>-1</R02>
+                <R02>1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>1</R20>
+                <R20>-1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -5037,16 +5037,16 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>84</X>
+                <X>96</X>
                 <Y>1.699997</Y>
                 <Z>-0</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>-1</R02>
+                <R02>1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>1</R20>
+                <R20>-1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -5146,17 +5146,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>98</X>
+                  <X>82</X>
                   <Y>2.350006</Y>
-                  <Z>-15</Z>
+                  <Z>15</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-1</R21>
+                  <R20>0</R20>
+                  <R21>1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -5176,17 +5176,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>98</X>
+                  <X>82</X>
                   <Y>2.350006</Y>
-                  <Z>-9</Z>
+                  <Z>9</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-1</R21>
+                  <R20>0</R20>
+                  <R21>1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -5206,17 +5206,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>98</X>
+                  <X>82</X>
                   <Y>2.350006</Y>
-                  <Z>-3</Z>
+                  <Z>3</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-1</R21>
+                  <R20>0</R20>
+                  <R21>1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -5236,17 +5236,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>98</X>
+                  <X>82</X>
                   <Y>2.350006</Y>
-                  <Z>3</Z>
+                  <Z>-3</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-1</R21>
+                  <R20>0</R20>
+                  <R21>1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -5266,17 +5266,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>98</X>
+                  <X>82</X>
                   <Y>2.350006</Y>
-                  <Z>9</Z>
+                  <Z>-9</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-1</R21>
+                  <R20>0</R20>
+                  <R21>1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -5296,17 +5296,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>98</X>
+                  <X>82</X>
                   <Y>2.350006</Y>
-                  <Z>15</Z>
+                  <Z>-15</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-1</R21>
+                  <R20>0</R20>
+                  <R21>1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -5331,16 +5331,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>75</X>
+                  <X>105</X>
                   <Y>1.800003</Y>
-                  <Z>-17.5</Z>
+                  <Z>17.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>1</R20>
+                  <R20>-1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -5360,16 +5360,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>75</X>
+                  <X>105</X>
                   <Y>1.800003</Y>
-                  <Z>-12.5</Z>
+                  <Z>12.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>1</R20>
+                  <R20>-1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -5389,16 +5389,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>75</X>
+                  <X>105</X>
                   <Y>1.800003</Y>
-                  <Z>-7.5</Z>
+                  <Z>7.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>1</R20>
+                  <R20>-1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -5418,16 +5418,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>75</X>
+                  <X>105</X>
                   <Y>1.800003</Y>
-                  <Z>-2.5</Z>
+                  <Z>2.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>1</R20>
+                  <R20>-1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -5447,16 +5447,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>75</X>
+                  <X>105</X>
                   <Y>1.800003</Y>
-                  <Z>2.5</Z>
+                  <Z>-2.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>1</R20>
+                  <R20>-1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -5476,16 +5476,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>75</X>
+                  <X>105</X>
                   <Y>1.800003</Y>
-                  <Z>7.5</Z>
+                  <Z>-7.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>1</R20>
+                  <R20>-1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -5505,16 +5505,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>75</X>
+                  <X>105</X>
                   <Y>1.800003</Y>
-                  <Z>12.5</Z>
+                  <Z>-12.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>1</R20>
+                  <R20>-1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -5534,16 +5534,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>75</X>
+                  <X>105</X>
                   <Y>1.800003</Y>
-                  <Z>17.5</Z>
+                  <Z>-17.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>-1</R02>
+                  <R02>1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>1</R20>
+                  <R20>-1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -5573,15 +5573,15 @@ end)
                 <X>63.639618</X>
                 <Y>1.1000061</Y>
                 <Z>63.639618</Z>
-                <R00>-0.70710754</R00>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">7891290</Color3uint8>
               <token name="Material">528</token>
@@ -5599,18 +5599,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>48.083267</X>
+                <X>79.19597</X>
                 <Y>7.600006</Y>
-                <Z>48.083267</Z>
-                <R00>-0.70710754</R00>
+                <Z>79.19597</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -5628,18 +5628,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>79.19597</X>
+                <X>48.083267</X>
                 <Y>7.600006</Y>
-                <Z>48.083267</Z>
-                <R00>-0.70710754</R00>
+                <Z>79.19597</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -5657,18 +5657,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>48.083267</X>
+                <X>79.19597</X>
                 <Y>7.600006</Y>
-                <Z>79.19597</Z>
-                <R00>-0.70710754</R00>
+                <Z>48.083267</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -5686,18 +5686,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>79.19597</X>
+                <X>48.083267</X>
                 <Y>7.600006</Y>
-                <Z>79.19597</Z>
-                <R00>-0.70710754</R00>
+                <Z>48.083267</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">5299320</Color3uint8>
@@ -5719,16 +5719,16 @@ end)
               <CoordinateFrame name="CFrame">
                 <X>63.639618</X>
                 <Y>2.600006</Y>
-                <Z>87.681244</Z>
-                <R00>-0.70710754</R00>
+                <Z>39.597977</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">15088700</Color3uint8>
               <token name="Material">288</token>
@@ -5746,18 +5746,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>59.396973</X>
+                <X>67.88225</X>
                 <Y>1.699997</Y>
-                <Z>59.396973</Z>
-                <R00>-0.70710754</R00>
+                <Z>67.88225</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">16777215</Color3uint8>
@@ -5855,18 +5855,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>79.903076</X>
+                  <X>47.37616</X>
                   <Y>2.350006</Y>
-                  <Z>58.689865</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>68.589355</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -5885,18 +5885,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>75.66043</X>
+                  <X>51.618805</X>
                   <Y>2.350006</Y>
-                  <Z>62.93251</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>64.346725</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -5915,18 +5915,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>71.417786</X>
+                  <X>55.861435</X>
                   <Y>2.350006</Y>
-                  <Z>67.175156</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>60.10408</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -5945,18 +5945,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>67.17514</X>
+                  <X>60.10408</X>
                   <Y>2.350006</Y>
-                  <Z>71.417786</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>55.861435</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -5975,18 +5975,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>62.93251</X>
+                  <X>64.346725</X>
                   <Y>2.350006</Y>
-                  <Z>75.66043</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>51.618805</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -6005,18 +6005,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>58.689865</X>
+                  <X>68.589355</X>
                   <Y>2.350006</Y>
-                  <Z>79.903076</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>47.37616</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -6040,18 +6040,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>65.40738</X>
+                  <X>61.87184</X>
                   <Y>1.800003</Y>
-                  <Z>40.658646</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>86.62059</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6069,18 +6069,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>61.87184</X>
+                  <X>65.40738</X>
                   <Y>1.800003</Y>
-                  <Z>44.194168</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>83.08505</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6098,18 +6098,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>58.33632</X>
+                  <X>68.94292</X>
                   <Y>1.800003</Y>
-                  <Z>47.729706</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>79.549515</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6127,18 +6127,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>54.80078</X>
+                  <X>72.478455</X>
                   <Y>1.800003</Y>
-                  <Z>51.265244</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>76.01398</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6156,18 +6156,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>51.265244</X>
+                  <X>76.01398</X>
                   <Y>1.800003</Y>
-                  <Z>54.80078</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>72.478455</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6185,18 +6185,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>47.729706</X>
+                  <X>79.549515</X>
                   <Y>1.800003</Y>
-                  <Z>58.336304</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>68.94292</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6214,18 +6214,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>44.194168</X>
+                  <X>83.08505</X>
                   <Y>1.800003</Y>
-                  <Z>61.87184</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>65.40738</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6243,18 +6243,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>40.658646</X>
+                  <X>86.62059</X>
                   <Y>1.800003</Y>
-                  <Z>65.40738</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>61.87184</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6282,15 +6282,15 @@ end)
                 <X>0</X>
                 <Y>1.1000061</Y>
                 <Z>90</Z>
-                <R00>-1</R00>
+                <R00>1</R00>
                 <R01>0</R01>
                 <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0</R20>
+                <R20>0</R20>
                 <R21>0</R21>
-                <R22>-1</R22>
+                <R22>1</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">7891290</Color3uint8>
               <token name="Material">528</token>
@@ -6310,16 +6310,16 @@ end)
               <CoordinateFrame name="CFrame">
                 <X>0</X>
                 <Y>7.600006</Y>
-                <Z>68</Z>
-                <R00>-1</R00>
+                <Z>112</Z>
+                <R00>1</R00>
                 <R01>0</R01>
                 <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0</R20>
+                <R20>0</R20>
                 <R21>0</R21>
-                <R22>-1</R22>
+                <R22>1</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -6337,18 +6337,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>22</X>
+                <X>-22</X>
                 <Y>7.600006</Y>
                 <Z>90</Z>
-                <R00>-1</R00>
+                <R00>1</R00>
                 <R01>0</R01>
                 <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0</R20>
+                <R20>0</R20>
                 <R21>0</R21>
-                <R22>-1</R22>
+                <R22>1</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -6366,18 +6366,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-22</X>
+                <X>22</X>
                 <Y>7.600006</Y>
                 <Z>90</Z>
-                <R00>-1</R00>
+                <R00>1</R00>
                 <R01>0</R01>
                 <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0</R20>
+                <R20>0</R20>
                 <R21>0</R21>
-                <R22>-1</R22>
+                <R22>1</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -6395,18 +6395,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-0</X>
+                <X>0</X>
                 <Y>7.600006</Y>
-                <Z>112</Z>
-                <R00>-1</R00>
+                <Z>68</Z>
+                <R00>1</R00>
                 <R01>0</R01>
                 <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0</R20>
+                <R20>0</R20>
                 <R21>0</R21>
-                <R22>-1</R22>
+                <R22>1</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">5299320</Color3uint8>
@@ -6426,18 +6426,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-17</X>
+                <X>17</X>
                 <Y>2.600006</Y>
-                <Z>107</Z>
-                <R00>-1</R00>
+                <Z>73</Z>
+                <R00>1</R00>
                 <R01>0</R01>
                 <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0</R20>
+                <R20>0</R20>
                 <R21>0</R21>
-                <R22>-1</R22>
+                <R22>1</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">15088700</Color3uint8>
               <token name="Material">288</token>
@@ -6457,16 +6457,16 @@ end)
               <CoordinateFrame name="CFrame">
                 <X>0</X>
                 <Y>1.699997</Y>
-                <Z>84</Z>
-                <R00>-1</R00>
+                <Z>96</Z>
+                <R00>1</R00>
                 <R01>0</R01>
                 <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0</R20>
+                <R20>0</R20>
                 <R21>0</R21>
-                <R22>-1</R22>
+                <R22>1</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">16777215</Color3uint8>
@@ -6564,18 +6564,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>15</X>
+                  <X>-15</X>
                   <Y>2.350006</Y>
-                  <Z>98</Z>
-                  <R00>0</R00>
-                  <R01>1</R01>
+                  <Z>82</Z>
+                  <R00>-0</R00>
+                  <R01>-1</R01>
                   <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
                   <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -6594,18 +6594,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>9</X>
+                  <X>-9</X>
                   <Y>2.350006</Y>
-                  <Z>98</Z>
-                  <R00>0</R00>
-                  <R01>1</R01>
+                  <Z>82</Z>
+                  <R00>-0</R00>
+                  <R01>-1</R01>
                   <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
                   <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -6624,18 +6624,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>3</X>
+                  <X>-3</X>
                   <Y>2.350006</Y>
-                  <Z>98</Z>
-                  <R00>0</R00>
-                  <R01>1</R01>
+                  <Z>82</Z>
+                  <R00>-0</R00>
+                  <R01>-1</R01>
                   <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
                   <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -6654,18 +6654,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-3</X>
+                  <X>3</X>
                   <Y>2.350006</Y>
-                  <Z>98</Z>
-                  <R00>0</R00>
-                  <R01>1</R01>
+                  <Z>82</Z>
+                  <R00>-0</R00>
+                  <R01>-1</R01>
                   <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
                   <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -6684,18 +6684,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-9</X>
+                  <X>9</X>
                   <Y>2.350006</Y>
-                  <Z>98</Z>
-                  <R00>0</R00>
-                  <R01>1</R01>
+                  <Z>82</Z>
+                  <R00>-0</R00>
+                  <R01>-1</R01>
                   <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
                   <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -6714,18 +6714,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-15</X>
+                  <X>15</X>
                   <Y>2.350006</Y>
-                  <Z>98</Z>
-                  <R00>0</R00>
-                  <R01>1</R01>
+                  <Z>82</Z>
+                  <R00>-0</R00>
+                  <R01>-1</R01>
                   <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
                   <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -6749,18 +6749,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>17.5</X>
+                  <X>-17.5</X>
                   <Y>1.800003</Y>
-                  <Z>75</Z>
-                  <R00>-1</R00>
+                  <Z>105</Z>
+                  <R00>1</R00>
                   <R01>0</R01>
                   <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
+                  <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6778,18 +6778,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>12.5</X>
+                  <X>-12.5</X>
                   <Y>1.800003</Y>
-                  <Z>75</Z>
-                  <R00>-1</R00>
+                  <Z>105</Z>
+                  <R00>1</R00>
                   <R01>0</R01>
                   <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
+                  <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6807,18 +6807,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>7.5</X>
+                  <X>-7.5</X>
                   <Y>1.800003</Y>
-                  <Z>75</Z>
-                  <R00>-1</R00>
+                  <Z>105</Z>
+                  <R00>1</R00>
                   <R01>0</R01>
                   <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
+                  <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6836,18 +6836,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>2.5</X>
+                  <X>-2.5</X>
                   <Y>1.800003</Y>
-                  <Z>75</Z>
-                  <R00>-1</R00>
+                  <Z>105</Z>
+                  <R00>1</R00>
                   <R01>0</R01>
                   <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
+                  <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6865,18 +6865,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-2.5</X>
+                  <X>2.5</X>
                   <Y>1.800003</Y>
-                  <Z>75</Z>
-                  <R00>-1</R00>
+                  <Z>105</Z>
+                  <R00>1</R00>
                   <R01>0</R01>
                   <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
+                  <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6894,18 +6894,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-7.5</X>
+                  <X>7.5</X>
                   <Y>1.800003</Y>
-                  <Z>75</Z>
-                  <R00>-1</R00>
+                  <Z>105</Z>
+                  <R00>1</R00>
                   <R01>0</R01>
                   <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
+                  <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6923,18 +6923,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-12.5</X>
+                  <X>12.5</X>
                   <Y>1.800003</Y>
-                  <Z>75</Z>
-                  <R00>-1</R00>
+                  <Z>105</Z>
+                  <R00>1</R00>
                   <R01>0</R01>
                   <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
+                  <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6952,18 +6952,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-17.5</X>
+                  <X>17.5</X>
                   <Y>1.800003</Y>
-                  <Z>75</Z>
-                  <R00>-1</R00>
+                  <Z>105</Z>
+                  <R00>1</R00>
                   <R01>0</R01>
                   <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
+                  <R20>0</R20>
                   <R21>0</R21>
-                  <R22>-1</R22>
+                  <R22>1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -6991,15 +6991,15 @@ end)
                 <X>-63.639618</X>
                 <Y>1.1000061</Y>
                 <Z>63.639618</Z>
-                <R00>-0.70710754</R00>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">7891290</Color3uint8>
               <token name="Material">528</token>
@@ -7017,18 +7017,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-48.083267</X>
+                <X>-79.19597</X>
                 <Y>7.600006</Y>
-                <Z>48.083267</Z>
-                <R00>-0.70710754</R00>
+                <Z>79.19597</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -7046,18 +7046,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-48.083267</X>
+                <X>-79.19597</X>
                 <Y>7.600006</Y>
-                <Z>79.19597</Z>
-                <R00>-0.70710754</R00>
+                <Z>48.083267</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -7075,18 +7075,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-79.19597</X>
+                <X>-48.083267</X>
                 <Y>7.600006</Y>
-                <Z>48.083267</Z>
-                <R00>-0.70710754</R00>
+                <Z>79.19597</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -7104,18 +7104,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-79.19597</X>
+                <X>-48.083267</X>
                 <Y>7.600006</Y>
-                <Z>79.19597</Z>
-                <R00>-0.70710754</R00>
+                <Z>48.083267</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">5299320</Color3uint8>
@@ -7135,18 +7135,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-87.681244</X>
+                <X>-39.597977</X>
                 <Y>2.600006</Y>
                 <Z>63.639618</Z>
-                <R00>-0.70710754</R00>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">15088700</Color3uint8>
               <token name="Material">288</token>
@@ -7164,18 +7164,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-59.396973</X>
+                <X>-67.88225</X>
                 <Y>1.699997</Y>
-                <Z>59.396973</Z>
-                <R00>-0.70710754</R00>
+                <Z>67.88225</Z>
+                <R00>0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>-0.70710754</R22>
+                <R22>0.70710754</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">16777215</Color3uint8>
@@ -7273,18 +7273,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-58.689865</X>
+                  <X>-68.589355</X>
                   <Y>2.350006</Y>
-                  <Z>79.903076</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>47.37616</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -7303,18 +7303,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-62.93251</X>
+                  <X>-64.346725</X>
                   <Y>2.350006</Y>
-                  <Z>75.66043</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>51.618805</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -7333,18 +7333,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-67.17514</X>
+                  <X>-60.10408</X>
                   <Y>2.350006</Y>
-                  <Z>71.417786</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>55.861435</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -7363,18 +7363,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-71.417786</X>
+                  <X>-55.861435</X>
                   <Y>2.350006</Y>
-                  <Z>67.175156</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>60.10408</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -7393,18 +7393,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-75.66043</X>
+                  <X>-51.618805</X>
                   <Y>2.350006</Y>
-                  <Z>62.93251</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>64.346725</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -7423,18 +7423,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-79.903076</X>
+                  <X>-47.37616</X>
                   <Y>2.350006</Y>
-                  <Z>58.689865</Z>
-                  <R00>0</R00>
-                  <R01>0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>68.589355</Z>
+                  <R00>-0</R00>
+                  <R01>-0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>-0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -7458,18 +7458,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-40.658646</X>
+                  <X>-86.62059</X>
                   <Y>1.800003</Y>
-                  <Z>65.40738</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>61.87184</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -7487,18 +7487,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-44.194168</X>
+                  <X>-83.08505</X>
                   <Y>1.800003</Y>
-                  <Z>61.87184</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>65.40738</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -7516,18 +7516,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-47.729706</X>
+                  <X>-79.549515</X>
                   <Y>1.800003</Y>
-                  <Z>58.336304</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>68.94292</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -7545,18 +7545,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-51.265244</X>
+                  <X>-76.01398</X>
                   <Y>1.800003</Y>
-                  <Z>54.80078</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>72.478455</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -7574,18 +7574,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-54.80078</X>
+                  <X>-72.478455</X>
                   <Y>1.800003</Y>
-                  <Z>51.265244</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>76.01398</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -7603,18 +7603,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-58.33632</X>
+                  <X>-68.94292</X>
                   <Y>1.800003</Y>
-                  <Z>47.729706</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>79.549515</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -7632,18 +7632,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-61.87184</X>
+                  <X>-65.40738</X>
                   <Y>1.800003</Y>
-                  <Z>44.194168</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>83.08505</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -7661,18 +7661,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-65.40738</X>
+                  <X>-61.87184</X>
                   <Y>1.800003</Y>
-                  <Z>40.658646</Z>
-                  <R00>-0.70710754</R00>
+                  <Z>86.62059</Z>
+                  <R00>0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>-0.70710754</R22>
+                  <R22>0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -7702,11 +7702,11 @@ end)
                 <Z>0</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>1</R02>
+                <R02>-1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-1</R20>
+                <R20>1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -7726,16 +7726,16 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-68</X>
+                <X>-112</X>
                 <Y>7.600006</Y>
                 <Z>-0</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>1</R02>
+                <R02>-1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-1</R20>
+                <R20>1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -7757,14 +7757,14 @@ end)
               <CoordinateFrame name="CFrame">
                 <X>-90</X>
                 <Y>7.600006</Y>
-                <Z>22</Z>
+                <Z>-22</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>1</R02>
+                <R02>-1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-1</R20>
+                <R20>1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -7786,14 +7786,14 @@ end)
               <CoordinateFrame name="CFrame">
                 <X>-90</X>
                 <Y>7.600006</Y>
-                <Z>-22</Z>
+                <Z>22</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>1</R02>
+                <R02>-1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-1</R20>
+                <R20>1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -7813,16 +7813,16 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-112</X>
+                <X>-68</X>
                 <Y>7.600006</Y>
                 <Z>0</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>1</R02>
+                <R02>-1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-1</R20>
+                <R20>1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -7844,16 +7844,16 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-107</X>
+                <X>-73</X>
                 <Y>2.600006</Y>
-                <Z>-17</Z>
+                <Z>17</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>1</R02>
+                <R02>-1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-1</R20>
+                <R20>1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -7873,16 +7873,16 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-84</X>
+                <X>-96</X>
                 <Y>1.699997</Y>
                 <Z>-0</Z>
                 <R00>-0</R00>
                 <R01>0</R01>
-                <R02>1</R02>
+                <R02>-1</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-1</R20>
+                <R20>1</R20>
                 <R21>0</R21>
                 <R22>-0</R22>
               </CoordinateFrame>
@@ -7982,17 +7982,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-98</X>
+                  <X>-82</X>
                   <Y>2.350006</Y>
-                  <Z>15</Z>
+                  <Z>-15</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>1</R21>
+                  <R20>-0</R20>
+                  <R21>-1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -8012,17 +8012,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-98</X>
+                  <X>-82</X>
                   <Y>2.350006</Y>
-                  <Z>9</Z>
+                  <Z>-9</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>1</R21>
+                  <R20>-0</R20>
+                  <R21>-1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -8042,17 +8042,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-98</X>
+                  <X>-82</X>
                   <Y>2.350006</Y>
-                  <Z>3</Z>
+                  <Z>-3</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>1</R21>
+                  <R20>-0</R20>
+                  <R21>-1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -8072,17 +8072,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-98</X>
+                  <X>-82</X>
                   <Y>2.350006</Y>
-                  <Z>-3</Z>
+                  <Z>3</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>1</R21>
+                  <R20>-0</R20>
+                  <R21>-1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -8102,17 +8102,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-98</X>
+                  <X>-82</X>
                   <Y>2.350006</Y>
-                  <Z>-9</Z>
+                  <Z>9</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>1</R21>
+                  <R20>-0</R20>
+                  <R21>-1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -8132,17 +8132,17 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-98</X>
+                  <X>-82</X>
                   <Y>2.350006</Y>
-                  <Z>-15</Z>
+                  <Z>15</Z>
                   <R00>0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>1</R21>
+                  <R20>-0</R20>
+                  <R21>-1</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
@@ -8167,16 +8167,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-75</X>
+                  <X>-105</X>
                   <Y>1.800003</Y>
-                  <Z>17.5</Z>
+                  <Z>-17.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-1</R20>
+                  <R20>1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -8196,16 +8196,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-75</X>
+                  <X>-105</X>
                   <Y>1.800003</Y>
-                  <Z>12.5</Z>
+                  <Z>-12.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-1</R20>
+                  <R20>1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -8225,16 +8225,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-75</X>
+                  <X>-105</X>
                   <Y>1.800003</Y>
-                  <Z>7.5</Z>
+                  <Z>-7.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-1</R20>
+                  <R20>1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -8254,16 +8254,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-75</X>
+                  <X>-105</X>
                   <Y>1.800003</Y>
-                  <Z>2.5</Z>
+                  <Z>-2.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-1</R20>
+                  <R20>1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -8283,16 +8283,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-75</X>
+                  <X>-105</X>
                   <Y>1.800003</Y>
-                  <Z>-2.5</Z>
+                  <Z>2.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-1</R20>
+                  <R20>1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -8312,16 +8312,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-75</X>
+                  <X>-105</X>
                   <Y>1.800003</Y>
-                  <Z>-7.5</Z>
+                  <Z>7.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-1</R20>
+                  <R20>1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -8341,16 +8341,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-75</X>
+                  <X>-105</X>
                   <Y>1.800003</Y>
-                  <Z>-12.5</Z>
+                  <Z>12.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-1</R20>
+                  <R20>1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -8370,16 +8370,16 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-75</X>
+                  <X>-105</X>
                   <Y>1.800003</Y>
-                  <Z>-17.5</Z>
+                  <Z>17.5</Z>
                   <R00>-0</R00>
                   <R01>0</R01>
-                  <R02>1</R02>
+                  <R02>-1</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-1</R20>
+                  <R20>1</R20>
                   <R21>0</R21>
                   <R22>-0</R22>
                 </CoordinateFrame>
@@ -8409,15 +8409,15 @@ end)
                 <X>-63.639618</X>
                 <Y>1.1000061</Y>
                 <Z>-63.639618</Z>
-                <R00>0.70710754</R00>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">7891290</Color3uint8>
               <token name="Material">528</token>
@@ -8435,18 +8435,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-48.083267</X>
+                <X>-79.19597</X>
                 <Y>7.600006</Y>
-                <Z>-48.083267</Z>
-                <R00>0.70710754</R00>
+                <Z>-79.19597</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -8464,18 +8464,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-79.19597</X>
+                <X>-48.083267</X>
                 <Y>7.600006</Y>
-                <Z>-48.083267</Z>
-                <R00>0.70710754</R00>
+                <Z>-79.19597</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -8493,18 +8493,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-48.083267</X>
+                <X>-79.19597</X>
                 <Y>7.600006</Y>
-                <Z>-79.19597</Z>
-                <R00>0.70710754</R00>
+                <Z>-48.083267</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -8522,18 +8522,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-79.19597</X>
+                <X>-48.083267</X>
                 <Y>7.600006</Y>
-                <Z>-79.19597</Z>
-                <R00>0.70710754</R00>
+                <Z>-48.083267</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">5299320</Color3uint8>
@@ -8555,16 +8555,16 @@ end)
               <CoordinateFrame name="CFrame">
                 <X>-63.639618</X>
                 <Y>2.600006</Y>
-                <Z>-87.681244</Z>
-                <R00>0.70710754</R00>
+                <Z>-39.597977</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">15088700</Color3uint8>
               <token name="Material">288</token>
@@ -8582,18 +8582,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-59.396973</X>
+                <X>-67.88225</X>
                 <Y>1.699997</Y>
-                <Z>-59.396973</Z>
-                <R00>0.70710754</R00>
+                <Z>-67.88225</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>0.70710754</R02>
+                <R02>-0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>-0.70710754</R20>
+                <R20>0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">16777215</Color3uint8>
@@ -8691,18 +8691,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-79.90306</X>
+                  <X>-47.37616</X>
                   <Y>2.350006</Y>
-                  <Z>-58.689865</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>-68.589355</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -8721,18 +8721,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-75.66043</X>
+                  <X>-51.61879</X>
                   <Y>2.350006</Y>
-                  <Z>-62.93251</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>-64.346725</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -8751,18 +8751,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-71.417786</X>
+                  <X>-55.861435</X>
                   <Y>2.350006</Y>
-                  <Z>-67.17514</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>-60.10408</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -8781,18 +8781,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-67.175156</X>
+                  <X>-60.10408</X>
                   <Y>2.350006</Y>
-                  <Z>-71.417786</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>-55.861435</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -8811,18 +8811,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-62.93251</X>
+                  <X>-64.346725</X>
                   <Y>2.350006</Y>
-                  <Z>-75.66043</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>-51.61879</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -8841,18 +8841,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-58.689865</X>
+                  <X>-68.58937</X>
                   <Y>2.350006</Y>
-                  <Z>-79.903076</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>0.70710754</R02>
+                  <Z>-47.37616</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>-0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
-                  <R21>0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>-0</R20>
+                  <R21>-0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -8876,18 +8876,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-65.40738</X>
+                  <X>-61.87184</X>
                   <Y>1.800003</Y>
-                  <Z>-40.658646</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-86.62059</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -8905,18 +8905,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-61.87184</X>
+                  <X>-65.40738</X>
                   <Y>1.800003</Y>
-                  <Z>-44.194183</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-83.08505</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -8934,18 +8934,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-58.336304</X>
+                  <X>-68.94292</X>
                   <Y>1.800003</Y>
-                  <Z>-47.729706</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-79.549515</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -8963,18 +8963,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-54.80078</X>
+                  <X>-72.478455</X>
                   <Y>1.800003</Y>
-                  <Z>-51.265244</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-76.01399</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -8992,18 +8992,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-51.265244</X>
+                  <X>-76.01398</X>
                   <Y>1.800003</Y>
-                  <Z>-54.80078</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-72.478455</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9021,18 +9021,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-47.729706</X>
+                  <X>-79.549515</X>
                   <Y>1.800003</Y>
-                  <Z>-58.33632</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-68.94292</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9050,18 +9050,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-44.194183</X>
+                  <X>-83.08505</X>
                   <Y>1.800003</Y>
-                  <Z>-61.87184</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-65.40738</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9079,18 +9079,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-40.658646</X>
+                  <X>-86.62059</X>
                   <Y>1.800003</Y>
-                  <Z>-65.40738</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-61.87184</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>0.70710754</R02>
+                  <R02>-0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>-0.70710754</R20>
+                  <R20>0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9118,15 +9118,15 @@ end)
                 <X>-0</X>
                 <Y>1.1000061</Y>
                 <Z>-90</Z>
-                <R00>1</R00>
+                <R00>-1</R00>
                 <R01>0</R01>
-                <R02>-0</R02>
+                <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0</R20>
+                <R20>-0</R20>
                 <R21>0</R21>
-                <R22>1</R22>
+                <R22>-1</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">7891290</Color3uint8>
               <token name="Material">528</token>
@@ -9144,18 +9144,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-0</X>
+                <X>0</X>
                 <Y>7.600006</Y>
-                <Z>-68</Z>
-                <R00>1</R00>
+                <Z>-112</Z>
+                <R00>-1</R00>
                 <R01>0</R01>
-                <R02>-0</R02>
+                <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0</R20>
+                <R20>-0</R20>
                 <R21>0</R21>
-                <R22>1</R22>
+                <R22>-1</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -9173,18 +9173,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-22</X>
+                <X>22</X>
                 <Y>7.600006</Y>
-                <Z>-90.000015</Z>
-                <R00>1</R00>
+                <Z>-90</Z>
+                <R00>-1</R00>
                 <R01>0</R01>
-                <R02>-0</R02>
+                <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0</R20>
+                <R20>-0</R20>
                 <R21>0</R21>
-                <R22>1</R22>
+                <R22>-1</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -9202,18 +9202,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>22</X>
+                <X>-22</X>
                 <Y>7.600006</Y>
                 <Z>-90</Z>
-                <R00>1</R00>
+                <R00>-1</R00>
                 <R01>0</R01>
-                <R02>-0</R02>
+                <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0</R20>
+                <R20>-0</R20>
                 <R21>0</R21>
-                <R22>1</R22>
+                <R22>-1</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -9231,18 +9231,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>0</X>
+                <X>-0</X>
                 <Y>7.600006</Y>
-                <Z>-112</Z>
-                <R00>1</R00>
+                <Z>-68</Z>
+                <R00>-1</R00>
                 <R01>0</R01>
-                <R02>-0</R02>
+                <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0</R20>
+                <R20>-0</R20>
                 <R21>0</R21>
-                <R22>1</R22>
+                <R22>-1</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">5299320</Color3uint8>
@@ -9262,18 +9262,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>17</X>
+                <X>-17</X>
                 <Y>2.600006</Y>
-                <Z>-107</Z>
-                <R00>1</R00>
+                <Z>-73</Z>
+                <R00>-1</R00>
                 <R01>0</R01>
-                <R02>-0</R02>
+                <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0</R20>
+                <R20>-0</R20>
                 <R21>0</R21>
-                <R22>1</R22>
+                <R22>-1</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">15088700</Color3uint8>
               <token name="Material">288</token>
@@ -9291,18 +9291,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>-0</X>
+                <X>0</X>
                 <Y>1.699997</Y>
-                <Z>-84</Z>
-                <R00>1</R00>
+                <Z>-96</Z>
+                <R00>-1</R00>
                 <R01>0</R01>
-                <R02>-0</R02>
+                <R02>0</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0</R20>
+                <R20>-0</R20>
                 <R21>0</R21>
-                <R22>1</R22>
+                <R22>-1</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">16777215</Color3uint8>
@@ -9400,18 +9400,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-15</X>
+                  <X>15</X>
                   <Y>2.350006</Y>
-                  <Z>-98</Z>
-                  <R00>-0</R00>
-                  <R01>-1</R01>
-                  <R02>-0</R02>
+                  <Z>-82</Z>
+                  <R00>0</R00>
+                  <R01>1</R01>
+                  <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0</R21>
-                  <R22>1</R22>
+                  <R20>0</R20>
+                  <R21>0</R21>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -9430,18 +9430,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-9</X>
+                  <X>9</X>
                   <Y>2.350006</Y>
-                  <Z>-98</Z>
-                  <R00>-0</R00>
-                  <R01>-1</R01>
-                  <R02>-0</R02>
+                  <Z>-82</Z>
+                  <R00>0</R00>
+                  <R01>1</R01>
+                  <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0</R21>
-                  <R22>1</R22>
+                  <R20>0</R20>
+                  <R21>0</R21>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -9460,18 +9460,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-3</X>
+                  <X>3</X>
                   <Y>2.350006</Y>
-                  <Z>-98</Z>
-                  <R00>-0</R00>
-                  <R01>-1</R01>
-                  <R02>-0</R02>
+                  <Z>-82</Z>
+                  <R00>0</R00>
+                  <R01>1</R01>
+                  <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0</R21>
-                  <R22>1</R22>
+                  <R20>0</R20>
+                  <R21>0</R21>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -9490,18 +9490,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>3</X>
+                  <X>-3</X>
                   <Y>2.350006</Y>
-                  <Z>-98</Z>
-                  <R00>-0</R00>
-                  <R01>-1</R01>
-                  <R02>-0</R02>
+                  <Z>-82</Z>
+                  <R00>0</R00>
+                  <R01>1</R01>
+                  <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0</R21>
-                  <R22>1</R22>
+                  <R20>0</R20>
+                  <R21>0</R21>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -9520,18 +9520,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>9</X>
+                  <X>-9</X>
                   <Y>2.350006</Y>
-                  <Z>-98</Z>
-                  <R00>-0</R00>
-                  <R01>-1</R01>
-                  <R02>-0</R02>
+                  <Z>-82</Z>
+                  <R00>0</R00>
+                  <R01>1</R01>
+                  <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0</R21>
-                  <R22>1</R22>
+                  <R20>0</R20>
+                  <R21>0</R21>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -9550,18 +9550,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>15</X>
+                  <X>-15</X>
                   <Y>2.350006</Y>
-                  <Z>-98</Z>
-                  <R00>-0</R00>
-                  <R01>-1</R01>
-                  <R02>-0</R02>
+                  <Z>-82</Z>
+                  <R00>0</R00>
+                  <R01>1</R01>
+                  <R02>0</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0</R21>
-                  <R22>1</R22>
+                  <R20>0</R20>
+                  <R21>0</R21>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -9585,18 +9585,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-17.5</X>
+                  <X>17.5</X>
                   <Y>1.800003</Y>
-                  <Z>-75</Z>
-                  <R00>1</R00>
+                  <Z>-105</Z>
+                  <R00>-1</R00>
                   <R01>0</R01>
-                  <R02>-0</R02>
+                  <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
+                  <R20>-0</R20>
                   <R21>0</R21>
-                  <R22>1</R22>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9614,18 +9614,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-12.5</X>
+                  <X>12.5</X>
                   <Y>1.800003</Y>
-                  <Z>-75</Z>
-                  <R00>1</R00>
+                  <Z>-105</Z>
+                  <R00>-1</R00>
                   <R01>0</R01>
-                  <R02>-0</R02>
+                  <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
+                  <R20>-0</R20>
                   <R21>0</R21>
-                  <R22>1</R22>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9643,18 +9643,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-7.5</X>
+                  <X>7.5</X>
                   <Y>1.800003</Y>
-                  <Z>-75</Z>
-                  <R00>1</R00>
+                  <Z>-105</Z>
+                  <R00>-1</R00>
                   <R01>0</R01>
-                  <R02>-0</R02>
+                  <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
+                  <R20>-0</R20>
                   <R21>0</R21>
-                  <R22>1</R22>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9672,18 +9672,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>-2.5</X>
+                  <X>2.5</X>
                   <Y>1.800003</Y>
-                  <Z>-75</Z>
-                  <R00>1</R00>
+                  <Z>-105</Z>
+                  <R00>-1</R00>
                   <R01>0</R01>
-                  <R02>-0</R02>
+                  <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
+                  <R20>-0</R20>
                   <R21>0</R21>
-                  <R22>1</R22>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9701,18 +9701,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>2.5</X>
+                  <X>-2.5</X>
                   <Y>1.800003</Y>
-                  <Z>-75</Z>
-                  <R00>1</R00>
+                  <Z>-105</Z>
+                  <R00>-1</R00>
                   <R01>0</R01>
-                  <R02>-0</R02>
+                  <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
+                  <R20>-0</R20>
                   <R21>0</R21>
-                  <R22>1</R22>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9730,18 +9730,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>7.5</X>
+                  <X>-7.5</X>
                   <Y>1.800003</Y>
-                  <Z>-75</Z>
-                  <R00>1</R00>
+                  <Z>-105</Z>
+                  <R00>-1</R00>
                   <R01>0</R01>
-                  <R02>-0</R02>
+                  <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
+                  <R20>-0</R20>
                   <R21>0</R21>
-                  <R22>1</R22>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9759,18 +9759,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>12.5</X>
+                  <X>-12.5</X>
                   <Y>1.800003</Y>
-                  <Z>-75</Z>
-                  <R00>1</R00>
+                  <Z>-105</Z>
+                  <R00>-1</R00>
                   <R01>0</R01>
-                  <R02>-0</R02>
+                  <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
+                  <R20>-0</R20>
                   <R21>0</R21>
-                  <R22>1</R22>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9788,18 +9788,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>17.5</X>
+                  <X>-17.5</X>
                   <Y>1.800003</Y>
-                  <Z>-75</Z>
-                  <R00>1</R00>
+                  <Z>-105</Z>
+                  <R00>-1</R00>
                   <R01>0</R01>
-                  <R02>-0</R02>
+                  <R02>0</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0</R20>
+                  <R20>-0</R20>
                   <R21>0</R21>
-                  <R22>1</R22>
+                  <R22>-1</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -9827,15 +9827,15 @@ end)
                 <X>63.639618</X>
                 <Y>1.1000061</Y>
                 <Z>-63.639618</Z>
-                <R00>0.70710754</R00>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">7891290</Color3uint8>
               <token name="Material">528</token>
@@ -9853,18 +9853,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>48.083267</X>
+                <X>79.19597</X>
                 <Y>7.600006</Y>
-                <Z>-48.083267</Z>
-                <R00>0.70710754</R00>
+                <Z>-79.19597</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -9882,18 +9882,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>48.083267</X>
+                <X>79.19597</X>
                 <Y>7.600006</Y>
-                <Z>-79.19597</Z>
-                <R00>0.70710754</R00>
+                <Z>-48.083267</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -9911,18 +9911,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>79.19597</X>
+                <X>48.083267</X>
                 <Y>7.600006</Y>
-                <Z>-48.083267</Z>
-                <R00>0.70710754</R00>
+                <Z>-79.19597</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">9866365</Color3uint8>
               <token name="Material">848</token>
@@ -9940,18 +9940,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>79.19597</X>
+                <X>48.083267</X>
                 <Y>7.600006</Y>
-                <Z>-79.19597</Z>
-                <R00>0.70710754</R00>
+                <Z>-48.083267</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">5299320</Color3uint8>
@@ -9971,18 +9971,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>87.681244</X>
+                <X>39.597977</X>
                 <Y>2.600006</Y>
-                <Z>-63.639618</Z>
-                <R00>0.70710754</R00>
+                <Z>-63.639603</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <Color3uint8 name="Color3uint8">15088700</Color3uint8>
               <token name="Material">288</token>
@@ -10000,18 +10000,18 @@ end)
               <bool name="Anchored">true</bool>
               <token name="BottomSurface">0</token>
               <CoordinateFrame name="CFrame">
-                <X>59.396973</X>
+                <X>67.88225</X>
                 <Y>1.699997</Y>
-                <Z>-59.396973</Z>
-                <R00>0.70710754</R00>
+                <Z>-67.88225</Z>
+                <R00>-0.70710754</R00>
                 <R01>0</R01>
-                <R02>-0.70710754</R02>
+                <R02>0.70710754</R02>
                 <R10>0</R10>
                 <R11>1</R11>
                 <R12>0</R12>
-                <R20>0.70710754</R20>
+                <R20>-0.70710754</R20>
                 <R21>0</R21>
-                <R22>0.70710754</R22>
+                <R22>-0.70710754</R22>
               </CoordinateFrame>
               <bool name="CanCollide">false</bool>
               <Color3uint8 name="Color3uint8">16777215</Color3uint8>
@@ -10109,18 +10109,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>58.689865</X>
+                  <X>68.58937</X>
                   <Y>2.350006</Y>
-                  <Z>-79.903076</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>-47.37616</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -10139,18 +10139,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>62.93251</X>
+                  <X>64.346725</X>
                   <Y>2.350006</Y>
-                  <Z>-75.66043</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>-51.61879</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -10169,18 +10169,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>67.175156</X>
+                  <X>60.10408</X>
                   <Y>2.350006</Y>
-                  <Z>-71.417786</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>-55.861435</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -10199,18 +10199,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>71.417786</X>
+                  <X>55.861435</X>
                   <Y>2.350006</Y>
-                  <Z>-67.17514</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>-60.10408</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -10229,18 +10229,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>75.66043</X>
+                  <X>51.61879</X>
                   <Y>2.350006</Y>
-                  <Z>-62.93251</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>-64.346725</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -10259,18 +10259,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>79.90306</X>
+                  <X>47.37616</X>
                   <Y>2.350006</Y>
-                  <Z>-58.689865</Z>
-                  <R00>-0</R00>
-                  <R01>-0.70710754</R01>
-                  <R02>-0.70710754</R02>
+                  <Z>-68.589355</Z>
+                  <R00>0</R00>
+                  <R01>0.70710754</R01>
+                  <R02>0.70710754</R02>
                   <R10>1</R10>
                   <R11>-0</R11>
                   <R12>0</R12>
-                  <R20>-0</R20>
-                  <R21>-0.70710754</R21>
-                  <R22>0.70710754</R22>
+                  <R20>0</R20>
+                  <R21>0.70710754</R21>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">15777370</Color3uint8>
                 <token name="Material">272</token>
@@ -10294,18 +10294,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>40.658646</X>
+                  <X>86.62059</X>
                   <Y>1.800003</Y>
-                  <Z>-65.40738</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-61.871857</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -10323,18 +10323,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>44.194183</X>
+                  <X>83.08505</X>
                   <Y>1.800003</Y>
-                  <Z>-61.87184</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-65.40738</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -10352,18 +10352,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>47.729706</X>
+                  <X>79.549515</X>
                   <Y>1.800003</Y>
-                  <Z>-58.33632</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-68.94292</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -10381,18 +10381,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>51.265244</X>
+                  <X>76.01398</X>
                   <Y>1.800003</Y>
-                  <Z>-54.80078</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-72.478455</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -10410,18 +10410,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>54.80078</X>
+                  <X>72.47844</X>
                   <Y>1.800003</Y>
-                  <Z>-51.265244</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-76.01399</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -10439,18 +10439,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>58.336304</X>
+                  <X>68.94292</X>
                   <Y>1.800003</Y>
-                  <Z>-47.729706</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-79.549515</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -10468,18 +10468,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>61.87184</X>
+                  <X>65.40738</X>
                   <Y>1.800003</Y>
-                  <Z>-44.194183</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-83.08505</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>
@@ -10497,18 +10497,18 @@ end)
                 <bool name="Anchored">true</bool>
                 <token name="BottomSurface">0</token>
                 <CoordinateFrame name="CFrame">
-                  <X>65.40738</X>
+                  <X>61.87184</X>
                   <Y>1.800003</Y>
-                  <Z>-40.658646</Z>
-                  <R00>0.70710754</R00>
+                  <Z>-86.62059</Z>
+                  <R00>-0.70710754</R00>
                   <R01>0</R01>
-                  <R02>-0.70710754</R02>
+                  <R02>0.70710754</R02>
                   <R10>0</R10>
                   <R11>1</R11>
                   <R12>0</R12>
-                  <R20>0.70710754</R20>
+                  <R20>-0.70710754</R20>
                   <R21>0</R21>
-                  <R22>0.70710754</R22>
+                  <R22>-0.70710754</R22>
                 </CoordinateFrame>
                 <Color3uint8 name="Color3uint8">5921390</Color3uint8>
                 <token name="Material">800</token>

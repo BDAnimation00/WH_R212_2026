@@ -1,6 +1,6 @@
 -- MAP DE BASE (placeholder) — disposition en cercle
 --   Centre : la boutique
---   Autour : les 8 bases, en cercle, portes tournées vers l'extérieur
+--   Autour : les 8 bases, en cercle, portes tournées vers le centre
 --   Puis des anneaux de nids : Forêt → Volcan → Ciel (plus on s'éloigne, plus c'est rare)
 --
 -- Le fichier DragonHeist.rbxlx contient déjà cette map : tu peux la modifier librement dans Studio.
@@ -317,15 +317,15 @@ function WorldBuilder.Build()
 	spawn.Duration = 0
 	spawn.Parent = map
 
-	-- Bases en cercle autour de la boutique, porte tournée vers l'extérieur (vers les nids)
+	-- Bases en cercle autour de la boutique, porte tournée vers le centre
 	local bases = Instance.new("Folder")
 	bases.Name = "Bases"
 	bases.Parent = map
 	for i = 1, BASE_COUNT do
 		local angle = math.rad((i - 1) * (360 / BASE_COUNT))
 		local position = polar(BASE_RING_RADIUS, angle, plazaTop)
-		-- Rotation qui tourne l'avant de la base (-Z local, la porte) vers l'extérieur
-		local cf = CFrame.new(position) * CFrame.Angles(0, -angle - math.pi / 2, 0)
+		-- Rotation qui tourne l'avant de la base (-Z local, la porte) vers le centre (la boutique)
+		local cf = CFrame.new(position) * CFrame.Angles(0, math.pi / 2 - angle, 0)
 		buildBase(i, cf).Parent = bases
 	end
 

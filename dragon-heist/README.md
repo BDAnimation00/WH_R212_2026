@@ -16,7 +16,7 @@ Pour publier : mets **Max joueurs = 8**, parce qu'il y a 8 bases.
 |---|---|
 | **Jour / nuit** | 10 min de jour, 2 min 30 de nuit. Bandeau en haut de l'écran avec le compte à rebours. |
 | **Éclosion en temps réel** | Hors ligne : temps réel. Connecté le jour : **x2**. Connecté la nuit : **x10**. |
-| **Map en cercle** | Boutique au centre, 8 bases en cercle autour (portes vers l'extérieur), puis 3 anneaux de nids : Forêt → Volcan → Ciel. Plus on s'éloigne du centre, plus les œufs sont rares. |
+| **Map en cercle** | Boutique au centre, 8 bases en cercle autour (portes tournées vers le centre), puis 3 anneaux de nids : Forêt → Volcan → Ciel. Plus on s'éloigne du centre, plus les œufs sont rares. |
 | **Nids** | Ils se remplissent toutes les **5 min** pour tout le serveur, sur les 3 anneaux. La nuit, les œufs rares apparaissent 3x plus. Les œufs Cosmiques et plus rares sont annoncés à tout le serveur. |
 | **10 œufs, 9 raretés** | De Commun (10 s) à Éternel (20 h). |
 | **Mutations** | Argenté 6 % (x1,2), Doré 4 % (x2), Arc-en-ciel 1 % (x3), et **Lunaire 5 % (x2,5), seulement si l'œuf éclot la nuit**. |
