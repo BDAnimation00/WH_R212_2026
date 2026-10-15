@@ -21,6 +21,7 @@ Pour publier : mets **Max joueurs = 8**, parce qu'il y a 8 bases.
 | **10 œufs, 9 raretés** | De Commun (10 s) à Éternel (20 h). |
 | **Mutations** | Argenté 6 % (x1,2), Doré 4 % (x2), Arc-en-ciel 1 % (x3), et **Lunaire 5 % (x2,5), seulement si l'œuf éclot la nuit**. |
 | **Vol** | On maintient E 2 s sur l'incubateur d'un autre joueur, puis on ramène l'œuf chez soi. Le propriétaire est prévenu. |
+| **Entrée du propriétaire** | Le propriétaire traverse les murs de sa propre base et entre par n'importe quel côté. Pour lui, ses murs sont semi-transparents. Les autres joueurs doivent passer par la porte. |
 | **Porte verrouillable** | Bouton rouge dans la base : la porte bloque les autres pendant 60 s (le propriétaire passe), puis 30 s d'attente. |
 | **Porter un œuf** | L'œuf flotte au-dessus de la tête et ralentit le joueur. Si le joueur meurt, l'œuf est perdu. |
 | **Dragons** | Ils s'affichent sur les 8 socles, rapportent de l'or par seconde et se revendent. |
@@ -38,6 +39,7 @@ Tu me demandes la modification, je la fais et je te renvoie un nouveau fichier.
 - **Map** : tout est dans `Workspace > Map`. Tu peux déplacer, redécorer ou remplacer, à condition de **garder les noms** :
   - `Map/Shop/ShopCounter` : le comptoir de la boutique
   - `Map/Bases/Base_1` à `Base_8`, chacune avec : `Floor`, `Door`, `LockButton`, `Spawn`, `Sign`, `Incubators/Incubator_1..6`, `DragonPads/Pad_1..8`
+  - Les murs que seul le propriétaire peut traverser : toute pièce dont le nom commence par `Wall`, ou qui a l'attribut `OwnerPassable` coché.
   - `Map/NestZones/*` : les anneaux où les œufs apparaissent (attributs `Zone`, `InnerRadius`, `OuterRadius`).
     Les œufs se posent sur ce qui est dans `NestZones` : si tu ajoutes du relief (collines, rochers), mets-le dans ce dossier.
 - **Œufs et dragons** : mets un Model dans `ReplicatedStorage > Assets > Eggs` ou `Assets > Dragons`,

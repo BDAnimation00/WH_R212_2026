@@ -287,6 +287,38 @@ for _, prompt in CollectionService:GetTagged("DHPrompt") do
 	watchPrompt(prompt)
 end
 
+-- Ta base : tes murs sont semi-transparents pour toi (tu peux les traverser, pas les autres)
+local OWN_WALL_TRANSPARENCY = 0.6
+local function isOwnerPassable(instance)
+	return instance:IsA("BasePart")
+		and (string.sub(instance.Name, 1, 4) == "Wall" or instance:GetAttribute("OwnerPassable") == true)
+end
+local function refreshBase(base)
+	local mine = base:GetAttribute("OwnerUserId") == player.UserId
+	for _, descendant in base:GetDescendants() do
+		if isOwnerPassable(descendant) then
+			if descendant:GetAttribute("BaseTransparency") == nil then
+				descendant:SetAttribute("BaseTransparency", descendant.Transparency)
+			end
+			local original = descendant:GetAttribute("BaseTransparency")
+			descendant.Transparency = if mine then math.max(original, OWN_WALL_TRANSPARENCY) else original
+		end
+	end
+end
+task.spawn(function()
+	local bases = workspace:WaitForChild("Map"):WaitForChild("Bases")
+	local function watchBase(base)
+		refreshBase(base)
+		base:GetAttributeChangedSignal("OwnerUserId"):Connect(function()
+			refreshBase(base)
+		end)
+	end
+	for _, base in bases:GetChildren() do
+		watchBase(base)
+	end
+	bases.ChildAdded:Connect(watchBase)
+end)
+
 -- Mises à jour
 local function refreshStats()
 	goldLabel.Text = "💰 " .. Format.Number(player:GetAttribute("Gold") or 0)

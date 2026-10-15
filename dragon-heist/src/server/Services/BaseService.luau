@@ -1,5 +1,6 @@
 -- Bases des joueurs : attribution, panneau, porte verrouillable.
 -- Porte verrouillée = mur pour les autres joueurs, mais le propriétaire passe à travers.
+-- Les murs de la base sont aussi traversables par le propriétaire (et seulement lui) : il rentre par n'importe quel côté.
 
 local PhysicsService = game:GetService("PhysicsService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -35,6 +36,12 @@ local function setSign(base)
 	if label then
 		label.Text = if base.Owner then "Base de " .. base.Owner.DisplayName else "Base libre"
 	end
+end
+
+-- Pièce que seul le propriétaire peut traverser : tout ce qui s'appelle "Wall..." ou porte l'attribut OwnerPassable
+function BaseService.IsOwnerPassable(instance)
+	return instance:IsA("BasePart")
+		and (string.sub(instance.Name, 1, 4) == "Wall" or instance:GetAttribute("OwnerPassable") == true)
 end
 
 function BaseService.IsLocked(base)
@@ -103,6 +110,12 @@ function BaseService.Start()
 		if door then
 			door.CollisionGroup = doorGroup(base)
 			Visuals.Label(door, 8, 160)
+		end
+		-- Murs traversables par le propriétaire uniquement (il entre par n'importe quel côté)
+		for _, descendant in base.Model:GetDescendants() do
+			if BaseService.IsOwnerPassable(descendant) then
+				descendant.CollisionGroup = doorGroup(base)
+			end
 		end
 		setSign(base)
 		updateDoor(base)
