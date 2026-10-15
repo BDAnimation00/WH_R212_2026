@@ -39,7 +39,7 @@ Tu me demandes la modification, je la fais et je te renvoie un nouveau fichier.
 - **Œufs et dragons** : mets un Model dans `ReplicatedStorage > Assets > Eggs` ou `Assets > Dragons`,
   avec **exactement l'Id de l'œuf** comme nom (`Ember`, `Moss`, `Storm`, `Magma`, `Obsidian`, `Solar`, `Celestial`, `Nebula`, `Void`, `Primordial`).
   Il remplace automatiquement le cube ou la sphère.
-- Plan de la map : `docs/plan-map.svg`.
+- Plan de la map : `docs/plan-map.png` (image) ou `docs/plan-map.svg`.
 
 ## 🔄 Recevoir les mises à jour du code sans perdre ta map
 Quand tu auras commencé à modifier la map, n'ouvre plus un nouveau `.rbxlx`. Il faut alors installer **Rojo** :
