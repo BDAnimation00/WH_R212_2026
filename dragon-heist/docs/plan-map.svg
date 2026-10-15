@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="760" viewBox="0 0 520 760">
+<rect width="520" height="760" fill="#1b1f2a"/>
+<rect x="10.0" y="-70.0" width="500" height="800" fill="#6eaa5a" stroke="none" stroke-width="2" rx="4"/>
+<rect x="200.0" y="40.0" width="120" height="200" fill="#46823c" stroke="none" stroke-width="2" rx="4"/><text x="260" y="144.33333333333334" font-size="13" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold">🌲 FORÊT (zone 1)</text>
+<rect x="190.0" y="340.0" width="140" height="140" fill="#5a2a22" stroke="none" stroke-width="2" rx="4"/><text x="260" y="414.3333333333333" font-size="13" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold">🌋 VOLCAN (zone 2)</text>
+<rect x="250.0" y="485.0" width="20" height="90" fill="#d8d8f0" stroke="none" stroke-width="2" rx="4"/>
+<text x="274" y="530" font-size="11" fill="#fff" font-family="Arial">rampe ↑</text>
+<rect x="195.0" y="575.0" width="130" height="130" fill="#e6f0ff" stroke="none" stroke-width="2" rx="4"/><text x="260" y="644.0" font-size="12" text-anchor="middle" fill="#234" font-family="Arial" font-weight="bold">☁️ CIEL (zone 3, en hauteur)</text>
+<rect x="255.0" y="15.0" width="10" height="10" fill="#ffffff" stroke="none" stroke-width="2" rx="4"/>
+<text x="260" y="42" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial">spawn lobby</text>
+<rect x="128.0" y="28.0" width="44" height="44" fill="#786a5a" stroke="#bba" stroke-width="2" rx="4"/><text x="150" y="54.0" font-size="12" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold">Base 1</text>
+<line x1="172" y1="71" x2="172" y2="29" stroke="#50dc78" stroke-width="4"/>
+<rect x="128.0" y="88.0" width="44" height="44" fill="#786a5a" stroke="#bba" stroke-width="2" rx="4"/><text x="150" y="114.0" font-size="12" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold">Base 2</text>
+<line x1="172" y1="131" x2="172" y2="89" stroke="#50dc78" stroke-width="4"/>
+<rect x="128.0" y="148.0" width="44" height="44" fill="#786a5a" stroke="#bba" stroke-width="2" rx="4"/><text x="150" y="174.0" font-size="12" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold">Base 3</text>
+<line x1="172" y1="191" x2="172" y2="149" stroke="#50dc78" stroke-width="4"/>
+<rect x="128.0" y="208.0" width="44" height="44" fill="#786a5a" stroke="#bba" stroke-width="2" rx="4"/><text x="150" y="234.0" font-size="12" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold">Base 4</text>
+<line x1="172" y1="251" x2="172" y2="209" stroke="#50dc78" stroke-width="4"/>
+<rect x="348.0" y="28.0" width="44" height="44" fill="#786a5a" stroke="#bba" stroke-width="2" rx="4"/><text x="370" y="54.0" font-size="12" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold">Base 5</text>
+<line x1="348" y1="71" x2="348" y2="29" stroke="#50dc78" stroke-width="4"/>
+<rect x="348.0" y="88.0" width="44" height="44" fill="#786a5a" stroke="#bba" stroke-width="2" rx="4"/><text x="370" y="114.0" font-size="12" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold">Base 6</text>
+<line x1="348" y1="131" x2="348" y2="89" stroke="#50dc78" stroke-width="4"/>
+<rect x="348.0" y="148.0" width="44" height="44" fill="#786a5a" stroke="#bba" stroke-width="2" rx="4"/><text x="370" y="174.0" font-size="12" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold">Base 7</text>
+<line x1="348" y1="191" x2="348" y2="149" stroke="#50dc78" stroke-width="4"/>
+<rect x="348.0" y="208.0" width="44" height="44" fill="#786a5a" stroke="#bba" stroke-width="2" rx="4"/><text x="370" y="234.0" font-size="12" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="bold">Base 8</text>
+<line x1="348" y1="251" x2="348" y2="209" stroke="#50dc78" stroke-width="4"/>
+<text x="260.0" y="746" font-size="13" fill="#ccc" text-anchor="middle" font-family="Arial">Plus on monte vers le nord, plus les œufs sont rares · trait vert = porte</text>
+</svg>
