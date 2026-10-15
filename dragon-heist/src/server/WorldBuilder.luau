@@ -1,18 +1,33 @@
--- MAP DE BASE (placeholder)
--- Construit la carte de départ : 8 bases + 3 zones de nids (Forêt, Volcan, Ciel).
+-- MAP DE BASE (placeholder) — disposition en cercle
+--   Centre : la boutique
+--   Autour : les 8 bases, en cercle, portes tournées vers l'extérieur
+--   Puis des anneaux de nids : Forêt → Volcan → Ciel (plus on s'éloigne, plus c'est rare)
+--
 -- Le fichier DragonHeist.rbxlx contient déjà cette map : tu peux la modifier librement dans Studio.
 -- Ce script ne la reconstruit QUE si workspace.Map n'existe pas.
 --
 -- Noms importants à garder si tu remplaces les pièces par tes modèles :
+--   Map/Shop/ShopCounter  : comptoir de la boutique (le prompt "Boutique" s'y attache)
 --   Map/Bases/Base_1..8   : Floor, Door, LockButton, Spawn, Sign,
 --                           Incubators/Incubator_1..6, DragonPads/Pad_1..8
---   Map/NestZones/*       : pièces avec l'attribut "Zone" (1, 2 ou 3) ; les œufs apparaissent dessus
+--   Map/NestZones/*       : pièces avec l'attribut "Zone" (1, 2 ou 3).
+--                           Avec les attributs InnerRadius / OuterRadius, les œufs apparaissent sur l'anneau.
+--                           Les œufs se posent sur le décor qui est en dessous (tu peux ajouter du relief).
 
 local WorldBuilder = {}
 
 local BASE_COUNT = 8
+local BASE_RING_RADIUS = 90
 local INCUBATORS = 6
 local PADS = 8
+
+-- Rayons des anneaux (en studs, depuis le centre)
+local PLAZA_RADIUS = 125
+local RINGS = {
+	{ Name = "Foret", Label = "🌲 FORÊT", Zone = 1, Inner = PLAZA_RADIUS, Outer = 190, Color = Color3.fromRGB(70, 130, 60), Material = Enum.Material.LeafyGrass, TextColor = Color3.fromRGB(150, 255, 150) },
+	{ Name = "Volcan", Label = "🌋 VOLCAN", Zone = 2, Inner = 190, Outer = 265, Color = Color3.fromRGB(70, 40, 35), Material = Enum.Material.CrackedLava, TextColor = Color3.fromRGB(255, 140, 60) },
+	{ Name = "Ciel", Label = "☁️ CIEL", Zone = 3, Inner = 265, Outer = 340, Color = Color3.fromRGB(225, 238, 255), Material = Enum.Material.Glacier, TextColor = Color3.fromRGB(150, 230, 255) },
+}
 
 local function part(props)
 	local p = Instance.new("Part")
@@ -25,12 +40,24 @@ local function part(props)
 	return p
 end
 
+-- Disque plat de rayon `radius` dont le dessus est à la hauteur `top`
+local function disc(name, radius, top, color, material, parent)
+	return part({
+		Name = name,
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(1, radius * 2, radius * 2),
+		CFrame = CFrame.new(0, top - 0.5, 0) * CFrame.Angles(0, 0, math.rad(90)),
+		Color = color,
+		Material = material,
+		Parent = parent,
+	})
+end
+
 local function sign(parent, text, offsetY, color)
 	local gui = Instance.new("BillboardGui")
 	gui.Name = "Label"
 	gui.Size = UDim2.new(0, 260, 0, 60)
 	gui.StudsOffset = Vector3.new(0, offsetY, 0)
-	gui.AlwaysOnTop = false
 	gui.MaxDistance = 400
 	local label = Instance.new("TextLabel")
 	label.Size = UDim2.new(1, 0, 1, 0)
@@ -43,6 +70,18 @@ local function sign(parent, text, offsetY, color)
 	label.Parent = gui
 	gui.Parent = parent
 	return gui
+end
+
+local function marker(parent, name, position)
+	return part({
+		Name = name,
+		Size = Vector3.new(1, 1, 1),
+		CFrame = CFrame.new(position),
+		Transparency = 1,
+		CanCollide = false,
+		CanQuery = false,
+		Parent = parent,
+	})
 end
 
 local function buildBase(index, cf)
@@ -68,7 +107,7 @@ local function buildBase(index, cf)
 	part({ Name = "WallLeft", Size = Vector3.new(1, 12, 44), CFrame = at(-22, 7, 0), Color = wallColor, Material = Enum.Material.Brick, Parent = model })
 	part({ Name = "WallRight", Size = Vector3.new(1, 12, 44), CFrame = at(22, 7, 0), Color = wallColor, Material = Enum.Material.Brick, Parent = model })
 
-	-- Porte (avant de la base, face au centre de la map). Transparente quand elle est ouverte.
+	-- Porte à l'avant (-Z local). Transparente quand elle est ouverte.
 	part({
 		Name = "Door",
 		Size = Vector3.new(42, 12, 1),
@@ -100,14 +139,7 @@ local function buildBase(index, cf)
 		Parent = model,
 	})
 
-	local signPart = part({
-		Name = "Sign",
-		Size = Vector3.new(1, 1, 1),
-		CFrame = at(0, 16, 0),
-		Transparency = 1,
-		CanCollide = false,
-		Parent = model,
-	})
+	local signPart = marker(model, "Sign", at(0, 16, 0).Position)
 	sign(signPart, "Base libre", 0, Color3.fromRGB(255, 255, 255))
 
 	local incubators = Instance.new("Folder")
@@ -142,6 +174,53 @@ local function buildBase(index, cf)
 	return model
 end
 
+local function buildShop(parent)
+	local shop = Instance.new("Model")
+	shop.Name = "Shop"
+
+	local floor = part({
+		Name = "ShopFloor",
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(1, 36, 36),
+		CFrame = CFrame.new(0, 0.5, 0) * CFrame.Angles(0, 0, math.rad(90)),
+		Color = Color3.fromRGB(230, 200, 140),
+		Material = Enum.Material.Sandstone,
+		Parent = shop,
+	})
+	shop.PrimaryPart = floor
+
+	part({
+		Name = "ShopCounter",
+		Size = Vector3.new(14, 4, 6),
+		CFrame = CFrame.new(0, 3, 0),
+		Color = Color3.fromRGB(150, 95, 55),
+		Material = Enum.Material.Wood,
+		Parent = shop,
+	})
+	for _, corner in { Vector3.new(-8, 0, -8), Vector3.new(8, 0, -8), Vector3.new(-8, 0, 8), Vector3.new(8, 0, 8) } do
+		part({
+			Name = "Pillar",
+			Size = Vector3.new(1.5, 14, 1.5),
+			CFrame = CFrame.new(corner + Vector3.new(0, 8, 0)),
+			Color = Color3.fromRGB(240, 240, 240),
+			Material = Enum.Material.Marble,
+			Parent = shop,
+		})
+	end
+	local roof = part({
+		Name = "Roof",
+		Size = Vector3.new(22, 1.5, 22),
+		CFrame = CFrame.new(0, 15.5, 0),
+		Color = Color3.fromRGB(220, 60, 60),
+		Material = Enum.Material.SmoothPlastic,
+		Parent = shop,
+	})
+	sign(roof, "🛒 BOUTIQUE", 6, Color3.fromRGB(255, 220, 90))
+
+	shop.Parent = parent
+	return shop
+end
+
 local function tree(parent, position)
 	part({
 		Name = "Trunk",
@@ -162,97 +241,93 @@ local function tree(parent, position)
 	})
 end
 
+local function rock(parent, position, color)
+	part({
+		Name = "Rock",
+		Size = Vector3.new(7, 5, 6),
+		CFrame = CFrame.new(position + Vector3.new(0, 2, 0)) * CFrame.Angles(0.3, position.X % 3, 0.2),
+		Color = color,
+		Material = Enum.Material.Basalt,
+		Parent = parent,
+	})
+end
+
+local function polar(radius, angle, y)
+	return Vector3.new(math.cos(angle) * radius, y or 0, math.sin(angle) * radius)
+end
+
 function WorldBuilder.Build()
 	local map = Instance.new("Folder")
 	map.Name = "Map"
 
+	-- Sol extérieur (évite de tomber dans le vide au bord de la map)
 	part({
 		Name = "Ground",
-		Size = Vector3.new(500, 2, 800),
-		CFrame = CFrame.new(0, -1, -220),
+		Size = Vector3.new(900, 2, 900),
+		CFrame = CFrame.new(0, -1.2, 0),
 		Color = Color3.fromRGB(110, 170, 90),
 		Material = Enum.Material.Grass,
 		Parent = map,
 	})
 
+	-- Anneaux de nids : disques empilés, du plus grand (Ciel) au plus petit (place centrale)
+	local zones = Instance.new("Folder")
+	zones.Name = "NestZones"
+	zones.Parent = map
+	local decor = Instance.new("Folder")
+	decor.Name = "Decor"
+	decor.Parent = map
+
+	for i = #RINGS, 1, -1 do
+		local ring = RINGS[i]
+		local zonePart = disc(ring.Name, ring.Outer, 0.2 * (#RINGS - i), ring.Color, ring.Material, zones)
+		zonePart:SetAttribute("Zone", ring.Zone)
+		zonePart:SetAttribute("InnerRadius", ring.Inner)
+		zonePart:SetAttribute("OuterRadius", ring.Outer)
+
+		-- Panneaux du nom de zone, aux 4 coins de l'anneau
+		local middle = (ring.Inner + ring.Outer) / 2
+		for k = 0, 3 do
+			local anchor = marker(decor, "ZoneSign_" .. ring.Name, polar(middle, math.rad(45 + k * 90), 2))
+			sign(anchor, ring.Label, 12, ring.TextColor)
+		end
+	end
+
+	disc("Plaza", PLAZA_RADIUS, 0.2 * #RINGS, Color3.fromRGB(205, 195, 175), Enum.Material.Cobblestone, map)
+	local plazaTop = 0.2 * #RINGS
+
+	-- Décor : arbres dans la Forêt, rochers dans le Volcan
+	for k = 0, 11 do
+		local angle = math.rad(k * 30 + 15)
+		tree(decor, polar(150 + (k % 3) * 12, angle, 0.4))
+	end
+	for k = 0, 9 do
+		local angle = math.rad(k * 36 + 5)
+		rock(decor, polar(215 + (k % 2) * 25, angle, 0.2), Color3.fromRGB(45, 35, 35))
+	end
+
+	-- Boutique au centre + point d'apparition à côté
+	buildShop(map)
 	local spawn = Instance.new("SpawnLocation")
 	spawn.Name = "LobbySpawn"
 	spawn.Anchored = true
-	spawn.Size = Vector3.new(10, 1, 10)
-	spawn.CFrame = CFrame.new(0, 0.5, 90)
+	spawn.Size = Vector3.new(8, 1, 8)
+	spawn.CFrame = CFrame.new(0, plazaTop + 0.5, 26)
 	spawn.Neutral = true
 	spawn.Duration = 0
 	spawn.Parent = map
 
-	-- Bases : 4 à gauche, 4 à droite, portes tournées vers le centre
+	-- Bases en cercle autour de la boutique, porte tournée vers l'extérieur (vers les nids)
 	local bases = Instance.new("Folder")
 	bases.Name = "Bases"
 	bases.Parent = map
-	local rowsZ = { 60, 0, -60, -120 }
 	for i = 1, BASE_COUNT do
-		local side = if i <= 4 then -1 else 1
-		local z = rowsZ[(i - 1) % 4 + 1]
-		local position = Vector3.new(110 * side, 0, z)
-		-- La porte est à l'avant (-Z local), on oriente donc l'avant vers le centre (x = 0)
-		local cf = CFrame.lookAt(position, position + Vector3.new(-side, 0, 0))
+		local angle = math.rad((i - 1) * (360 / BASE_COUNT))
+		local position = polar(BASE_RING_RADIUS, angle, plazaTop)
+		-- Rotation qui tourne l'avant de la base (-Z local, la porte) vers l'extérieur
+		local cf = CFrame.new(position) * CFrame.Angles(0, -angle - math.pi / 2, 0)
 		buildBase(i, cf).Parent = bases
 	end
-
-	-- Zones de nids : plus c'est loin, plus c'est rare
-	local zones = Instance.new("Folder")
-	zones.Name = "NestZones"
-	zones.Parent = map
-
-	local forest = part({
-		Name = "Foret",
-		Size = Vector3.new(120, 0.2, 200),
-		CFrame = CFrame.new(0, 0.1, -30),
-		Color = Color3.fromRGB(70, 130, 60),
-		Material = Enum.Material.LeafyGrass,
-		Parent = zones,
-	})
-	forest:SetAttribute("Zone", 1)
-	sign(forest, "🌲 FORÊT", 14, Color3.fromRGB(150, 255, 150))
-
-	local decor = Instance.new("Folder")
-	decor.Name = "Decor"
-	decor.Parent = map
-	for _, offset in { Vector3.new(-50, 0, 40), Vector3.new(50, 0, 10), Vector3.new(-45, 0, -90), Vector3.new(48, 0, -110) } do
-		tree(decor, Vector3.new(offset.X, 0.2, offset.Z))
-	end
-
-	local volcano = part({
-		Name = "Volcan",
-		Size = Vector3.new(140, 0.2, 140),
-		CFrame = CFrame.new(0, 0.1, -300),
-		Color = Color3.fromRGB(70, 40, 35),
-		Material = Enum.Material.CrackedLava,
-		Parent = zones,
-	})
-	volcano:SetAttribute("Zone", 2)
-	sign(volcano, "🌋 VOLCAN", 14, Color3.fromRGB(255, 140, 60))
-
-	-- Rampe vers le Ciel : monte de y=0 (z=-375) à y=40 (z=-465)
-	local rise, run = 40, 90
-	part({
-		Name = "SkyRamp",
-		Size = Vector3.new(20, 1, math.sqrt(rise * rise + run * run)),
-		CFrame = CFrame.new(0, rise / 2, -375 - run / 2) * CFrame.Angles(math.atan2(rise, run), 0, 0),
-		Color = Color3.fromRGB(230, 230, 255),
-		Material = Enum.Material.Marble,
-		Parent = map,
-	})
-
-	local sky = part({
-		Name = "Ciel",
-		Size = Vector3.new(130, 1, 130),
-		CFrame = CFrame.new(0, 40, -530),
-		Color = Color3.fromRGB(235, 245, 255),
-		Material = Enum.Material.Glacier,
-		Parent = zones,
-	})
-	sky:SetAttribute("Zone", 3)
-	sign(sky, "☁️ CIEL", 14, Color3.fromRGB(150, 230, 255))
 
 	return map
 end

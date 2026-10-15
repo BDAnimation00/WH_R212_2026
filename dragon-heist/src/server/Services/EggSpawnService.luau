@@ -15,17 +15,36 @@ local EggSpawnService = {}
 local rng = Random.new()
 local container
 
-local function randomPointOn(zonePart)
-	local size = zonePart.Size
-	local x = (rng:NextNumber() - 0.5) * size.X * 0.9
-	local z = (rng:NextNumber() - 0.5) * size.Z * 0.9
-	return zonePart.CFrame * CFrame.new(x, size.Y / 2 + 1.4, z)
+-- Point au hasard sur une zone : sur l'anneau (attributs InnerRadius / OuterRadius) ou sur toute la pièce.
+-- L'œuf se pose ensuite sur ce qui est en dessous dans NestZones (relief compris).
+local function randomPointOn(zonePart, zonesFolder)
+	local x, z
+	local inner = zonePart:GetAttribute("InnerRadius")
+	local outer = zonePart:GetAttribute("OuterRadius")
+	if inner and outer then
+		local margin = 4
+		local r = math.sqrt(rng:NextNumber() * ((outer - margin) ^ 2 - (inner + margin) ^ 2) + (inner + margin) ^ 2)
+		local angle = rng:NextNumber() * math.pi * 2
+		x = zonePart.Position.X + math.cos(angle) * r
+		z = zonePart.Position.Z + math.sin(angle) * r
+	else
+		local size = zonePart.Size
+		local point = zonePart.CFrame * CFrame.new((rng:NextNumber() - 0.5) * size.X * 0.9, 0, (rng:NextNumber() - 0.5) * size.Z * 0.9)
+		x, z = point.Position.X, point.Position.Z
+	end
+
+	local params = RaycastParams.new()
+	params.FilterType = Enum.RaycastFilterType.Include
+	params.FilterDescendantsInstances = { zonesFolder }
+	local origin = Vector3.new(x, zonePart.Position.Y + 300, z)
+	local hit = workspace:Raycast(origin, Vector3.new(0, -600, 0), params)
+	local y = if hit then hit.Position.Y else zonePart.Position.Y + zonePart.Size.Y / 2
+	return CFrame.new(x, y + 1.4, z)
 end
 
-local function spawnEgg(zonePart, egg)
+local function spawnEgg(zonePart, zonesFolder, egg)
 	local visual = Visuals.Egg(egg.Id, true)
-	local cf = randomPointOn(zonePart)
-	visual:PivotTo(CFrame.new(cf.Position))
+	visual:PivotTo(randomPointOn(zonePart, zonesFolder))
 	visual.Parent = container
 
 	local rarity = Eggs.Rarities[egg.Rarity]
@@ -62,22 +81,29 @@ local function refill()
 		warn("[EggSpawnService] Aucun dossier Map/NestZones")
 		return
 	end
+	-- Regroupe les pièces par zone (une zone peut être faite de plusieurs pièces)
+	local partsByZone = {}
 	for _, zonePart in zones:GetChildren() do
 		local zone = zonePart:GetAttribute("Zone")
 		if zonePart:IsA("BasePart") and zone then
-			for _ = 1, Config.EggsPerNest do
-				local egg = Eggs.Roll(zone, isNight, Config.NightRareBoost, rng)
-				if egg then
-					spawnEgg(zonePart, egg)
-					local rarity = Eggs.Rarities[egg.Rarity]
-					if rarity.Order >= Config.AnnounceRarityOrder then
-						Remotes.Notify:FireAllClients(string.format(
-							"📢 Un œuf %s est apparu : %s (%s) !",
-							string.upper(rarity.Label),
-							egg.EggName,
-							Eggs.Zones[zone] or "?"
-						))
-					end
+			partsByZone[zone] = partsByZone[zone] or {}
+			table.insert(partsByZone[zone], zonePart)
+		end
+	end
+
+	for zone, parts in partsByZone do
+		for _ = 1, Config.EggsPerZone[zone] or 6 do
+			local egg = Eggs.Roll(zone, isNight, Config.NightRareBoost, rng)
+			if egg then
+				spawnEgg(parts[rng:NextInteger(1, #parts)], zones, egg)
+				local rarity = Eggs.Rarities[egg.Rarity]
+				if rarity.Order >= Config.AnnounceRarityOrder then
+					Remotes.Notify:FireAllClients(string.format(
+						"📢 Un œuf %s est apparu : %s (%s) !",
+						string.upper(rarity.Label),
+						egg.EggName,
+						Eggs.Zones[zone] or "?"
+					))
 				end
 			end
 		end

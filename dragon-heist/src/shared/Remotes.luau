@@ -3,7 +3,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 
-local NAMES = { "Notify", "HatchReveal", "UpgradeSpeed" }
+local NAMES = { "Notify", "HatchReveal", "UpgradeSpeed", "OpenShop" }
 
 local folder
 if RunService:IsServer() then

@@ -16,14 +16,16 @@ Pour publier : mets **Max joueurs = 8**, parce qu'il y a 8 bases.
 |---|---|
 | **Jour / nuit** | 10 min de jour, 2 min 30 de nuit. Bandeau en haut de l'écran avec le compte à rebours. |
 | **Éclosion en temps réel** | Hors ligne : temps réel. Connecté le jour : **x2**. Connecté la nuit : **x10**. |
-| **Nids** | Ils se remplissent toutes les **5 min** pour tout le serveur. 3 zones : Forêt → Volcan → Ciel (de plus en plus rare). La nuit, les œufs rares apparaissent 3x plus. Les œufs Cosmiques et plus rares sont annoncés à tout le serveur. |
+| **Map en cercle** | Boutique au centre, 8 bases en cercle autour (portes vers l'extérieur), puis 3 anneaux de nids : Forêt → Volcan → Ciel. Plus on s'éloigne du centre, plus les œufs sont rares. |
+| **Nids** | Ils se remplissent toutes les **5 min** pour tout le serveur, sur les 3 anneaux. La nuit, les œufs rares apparaissent 3x plus. Les œufs Cosmiques et plus rares sont annoncés à tout le serveur. |
 | **10 œufs, 9 raretés** | De Commun (10 s) à Éternel (20 h). |
 | **Mutations** | Argenté 6 % (x1,2), Doré 4 % (x2), Arc-en-ciel 1 % (x3), et **Lunaire 5 % (x2,5), seulement si l'œuf éclot la nuit**. |
 | **Vol** | On maintient E 2 s sur l'incubateur d'un autre joueur, puis on ramène l'œuf chez soi. Le propriétaire est prévenu. |
 | **Porte verrouillable** | Bouton rouge dans la base : la porte bloque les autres pendant 60 s (le propriétaire passe), puis 30 s d'attente. |
 | **Porter un œuf** | L'œuf flotte au-dessus de la tête et ralentit le joueur. Si le joueur meurt, l'œuf est perdu. |
 | **Dragons** | Ils s'affichent sur les 8 socles, rapportent de l'or par seconde et se revendent. |
-| **Progression** | Vitesse améliorable (bouton en bas), incubateurs à acheter (de 3 à 6), sauvegarde automatique. |
+| **Boutique** | Au centre de la map : on ne peut acheter de la vitesse qu'au comptoir, ce qui fait repasser tout le monde par le milieu. |
+| **Progression** | Vitesse achetée à la boutique, incubateurs à acheter (de 3 à 6), sauvegarde automatique. |
 
 ## ⚙️ Changer l'équilibrage
 Tout se règle dans **`src/shared/Config.luau`** (durée du jour et de la nuit, vitesse x10, prix…)
@@ -34,8 +36,10 @@ Tu me demandes la modification, je la fais et je te renvoie un nouveau fichier.
 
 ## 🎨 Où mettre ta 3D
 - **Map** : tout est dans `Workspace > Map`. Tu peux déplacer, redécorer ou remplacer, à condition de **garder les noms** :
+  - `Map/Shop/ShopCounter` : le comptoir de la boutique
   - `Map/Bases/Base_1` à `Base_8`, chacune avec : `Floor`, `Door`, `LockButton`, `Spawn`, `Sign`, `Incubators/Incubator_1..6`, `DragonPads/Pad_1..8`
-  - `Map/NestZones/*` : les surfaces où les œufs apparaissent. Chacune porte un attribut `Zone` (1, 2 ou 3).
+  - `Map/NestZones/*` : les anneaux où les œufs apparaissent (attributs `Zone`, `InnerRadius`, `OuterRadius`).
+    Les œufs se posent sur ce qui est dans `NestZones` : si tu ajoutes du relief (collines, rochers), mets-le dans ce dossier.
 - **Œufs et dragons** : mets un Model dans `ReplicatedStorage > Assets > Eggs` ou `Assets > Dragons`,
   avec **exactement l'Id de l'œuf** comme nom (`Ember`, `Moss`, `Storm`, `Magma`, `Obsidian`, `Solar`, `Celestial`, `Nebula`, `Void`, `Primordial`).
   Il remplace automatiquement le cube ou la sphère.
@@ -59,4 +63,5 @@ Le code se met alors à jour tout seul dans Studio, et ta map n'est pas touchée
 ## 🛠️ Pour Claude / les devs
 - Code : `src/` (Luau), structure Rojo dans `default.project.json`.
 - Générer le fichier de jeu : `rojo build default.project.json -o build/code.rbxlx && lune run tools/build-place.luau`
+- Régénérer le plan : `lune run tools/plan-svg.luau` (puis rendu PNG)
 - La map est générée par `src/server/WorldBuilder.luau`. Elle n'est reconstruite en jeu que si `workspace.Map` n'existe pas.

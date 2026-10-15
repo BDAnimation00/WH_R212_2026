@@ -92,25 +92,78 @@ local incomeLabel = label({
 local carryLabel = label({
 	Name = "Carry",
 	AnchorPoint = Vector2.new(0.5, 1),
-	Position = UDim2.new(0.5, 0, 1, -82),
+	Position = UDim2.new(0.5, 0, 1, -24),
 	Size = UDim2.new(0, 420, 0, 34),
 	Visible = false,
 })
 
+-- Fenêtre Boutique (s'ouvre au comptoir, au centre de la map)
+local shopPanel = Instance.new("Frame")
+shopPanel.Name = "ShopPanel"
+shopPanel.AnchorPoint = Vector2.new(0.5, 0.5)
+shopPanel.Position = UDim2.new(0.5, 0, 0.5, 0)
+shopPanel.Size = UDim2.new(0, 360, 0, 230)
+shopPanel.BackgroundColor3 = PANEL_COLOR
+shopPanel.BackgroundTransparency = 0.1
+shopPanel.Visible = false
+round(shopPanel, 18)
+shopPanel.Parent = gui
+
+label({
+	Parent = shopPanel,
+	BackgroundTransparency = 1,
+	Position = UDim2.new(0, 0, 0, 10),
+	Size = UDim2.new(1, 0, 0, 44),
+	Text = "🛒 BOUTIQUE",
+	TextColor3 = GOLD_COLOR,
+})
+
+local closeButton = Instance.new("TextButton")
+closeButton.AnchorPoint = Vector2.new(1, 0)
+closeButton.Position = UDim2.new(1, -8, 0, 8)
+closeButton.Size = UDim2.new(0, 36, 0, 36)
+closeButton.BackgroundColor3 = Color3.fromRGB(200, 60, 60)
+closeButton.Font = FONT
+closeButton.Text = "X"
+closeButton.TextColor3 = TEXT_COLOR
+closeButton.TextScaled = true
+round(closeButton, 10)
+closeButton.Parent = shopPanel
+
 local speedButton = Instance.new("TextButton")
 speedButton.Name = "SpeedButton"
-speedButton.AnchorPoint = Vector2.new(0.5, 1)
-speedButton.Position = UDim2.new(0.5, 0, 1, -24)
-speedButton.Size = UDim2.new(0, 300, 0, 50)
+speedButton.AnchorPoint = Vector2.new(0.5, 0)
+speedButton.Position = UDim2.new(0.5, 0, 0, 70)
+speedButton.Size = UDim2.new(1, -40, 0, 56)
 speedButton.BackgroundColor3 = Color3.fromRGB(60, 170, 255)
 speedButton.Font = FONT
 speedButton.TextColor3 = TEXT_COLOR
 speedButton.TextScaled = true
 speedButton.AutoButtonColor = true
 round(speedButton)
-speedButton.Parent = gui
+speedButton.Parent = shopPanel
 speedButton.Activated:Connect(function()
 	Remotes.UpgradeSpeed:FireServer()
+end)
+
+label({
+	Parent = shopPanel,
+	BackgroundTransparency = 1,
+	Position = UDim2.new(0, 0, 0, 140),
+	Size = UDim2.new(1, 0, 0, 70),
+	Text = "Bientôt : boosts de chance, œufs premium, game passes",
+	TextColor3 = Color3.fromRGB(170, 170, 190),
+})
+
+local shopPosition = nil
+local function closeShop()
+	shopPanel.Visible = false
+	shopPosition = nil
+end
+closeButton.Activated:Connect(closeShop)
+Remotes.OpenShop.OnClientEvent:Connect(function(position)
+	shopPosition = position
+	shopPanel.Visible = true
 end)
 
 -- Notifications (à droite)
@@ -276,4 +329,12 @@ RunService.Heartbeat:Connect(function(dt)
 
 	local nestLeft = (ReplicatedStorage:GetAttribute("EggRespawnAt") or now) - now
 	nestLabel.Text = "🥚 Nouveaux œufs dans " .. Format.Time(nestLeft)
+
+	-- La boutique se ferme quand on s'éloigne du comptoir
+	if shopPosition then
+		local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+		if not root or (root.Position - shopPosition).Magnitude > Config.ShopRange then
+			closeShop()
+		end
+	end
 end)

@@ -17,7 +17,7 @@ Config.HatchSpeed = {
 
 -- Œufs sauvages dans les nids
 Config.EggRespawnInterval = 300 -- les nids se remplissent toutes les 5 minutes
-Config.EggsPerNest = 6 -- nombre d'œufs par zone à chaque remplissage
+Config.EggsPerZone = { [1] = 14, [2] = 10, [3] = 6 } -- œufs par zone (Forêt, Volcan, Ciel) à chaque remplissage
 Config.NightRareBoost = 3 -- la nuit, les œufs rares de chaque zone ont 3x plus de chances d'apparaître
 Config.AnnounceRarityOrder = 7 -- annonce à tout le serveur à partir de cette rareté (7 = Cosmique)
 
@@ -26,6 +26,9 @@ Config.StartIncubators = 3
 Config.MaxIncubators = 6
 Config.LockDuration = 60 -- la porte reste verrouillée 60 s
 Config.LockCooldown = 30 -- puis 30 s avant de pouvoir la reverrouiller
+
+-- Boutique (au centre de la map)
+Config.ShopRange = 30 -- distance max du comptoir pour acheter
 
 -- Joueur
 Config.BaseWalkSpeed = 16
